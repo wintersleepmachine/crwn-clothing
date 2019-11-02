@@ -2,6 +2,7 @@ import React from 'react'
 import MenuItem from '../menu-item/menu-item.component'
 import './directory.styles.scss'
 
+//The home page component
 class Directory extends React.Component {
     constructor(){
         super()
