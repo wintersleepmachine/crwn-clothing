@@ -7,7 +7,7 @@ class ShopPage extends React.Component { //Shop page is the page which displays 
         super(props)
 
         this.state = {
-            collections: SHOP_DATA //Storing in  separate file
+            collections: SHOP_DATA //Storing in separate file
         }
     }
 
