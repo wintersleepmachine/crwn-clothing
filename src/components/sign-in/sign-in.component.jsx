@@ -19,7 +19,8 @@ class SignIn extends React.Component{
 
         const {email, password} = this.state
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            //Signs in with email and password into firebase
+            await auth.signInWithEmailAndPassword(email, password); //This will trigger auth.onAuthStateChanged() in our app component
             this.setState({email:'', password: ''})
         }catch(e){
             console.log(e)
@@ -59,7 +60,7 @@ class SignIn extends React.Component{
                     />
                     <div className = 'button'>
                         <CustomButton type="submit" >Sign In</CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn >Sign in with Google</CustomButton>
+                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn >Sign in with Google</CustomButton> {/* Whenever we click this google sign in button, signInWithGoogle will trigger google sign in prompt and firebase will handle authentication.*/}
                     </div>
                     
                 </form>

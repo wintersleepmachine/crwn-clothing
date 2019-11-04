@@ -18,7 +18,9 @@ const Header = ({currentUser}) => (
             </Link>
             {
                 currentUser ? 
-                    <div className ='option' onClick={() => auth.signOut()}>SIGN OUT</div> 
+                    <div className ='option' onClick={() => auth.signOut() /*signs user out from firebase, auth.onAuthStateChanged will send a authUser null obj back and set this.state.currentUser to null */}>
+                        SIGN OUT
+                    </div> 
                     : 
                     <Link className = 'option' to = '/signin'>SIGN IN</Link>
             }

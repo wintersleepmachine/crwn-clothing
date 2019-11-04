@@ -27,9 +27,15 @@ class SignUp extends React.Component {
         }
 
         try {
+            //Creates a new user account associated with the specified email address and password.
+            //On successful creation of the user account, this user will also be signed into your application. 
+            //Gives back a userAuth object, thats why we destructure 'user'
             const {user} = await auth.createUserWithEmailAndPassword(email, password)
+
+            //Create and save user document to the firestore database.
             await createUserProfileDocument(user, {displayName})
 
+            // If it works we reset our form inputs.
             this.setState({
                 displayName: '',
                 email: '',
