@@ -12,21 +12,19 @@ import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 import {Switch, Route} from 'react-router-dom'
 //Switch will match the first path it comes across. Helps prevent multiple page rendering at once.
 
+import {connect} from 'react-redux'
+import {setCurrentUser} from './redux/user/user.actions'
+
+
 //App component will only display the Header and our routes. Therefore the Header component will always be displayed.
 class App extends React.Component {
-  constructor(){
-    super()
-
-    this.state = {
-      currentUser: null
-    }
-  }
-
-
+  
 
   unsubscribeFromAuth = null //Initially set to null, but after auth.onAuthStateChanged() -> Gives us back a function and this function will close the subscription or close the open connection when the person closes the window for example.
 
   componentDidMount(){
+    const {setCurrentUser}= this.props
+
     //We want to know when firebase realizes that the authentication state has changed i.e whenver someone signs in Or signs out, we want to be aware of that change.
     //When we call auth.onAuthChanged(callback), the call back takes an paramter which is the user state is of the auth in our firebase project
     //onAuthChanged() establishes an open connection as long as our application is open on the DOM.
@@ -49,18 +47,15 @@ class App extends React.Component {
         
         //Next we subscribe or listen to this userRef object for any changes to the data with userRef.onSnapshot(callback).
         // if there is a change we will get back the state of that data which is the first parameter of the callback 'snapshot'
-        //then we take the paramter 'snapshot' and set OUR local this.state.currentUser with the snapShot id and the data.
+        //then we take the paramter 'snapshot' and set OUR redux store with the snapShot id and the data.
         userRef.onSnapshot(snapShot => {
-          console.log(snapShot.data())
-          this.setState({
-            currentUser: {
+          setCurrentUser({
               id: snapShot.id,    //
               ...snapShot.data() //Spreading createdAt, displayName, email
-            }
-          }, () => console.log(this.state.currentUser))
+            })
         })
-      }else { //If the user logs out then userAuth will be null and we set this.state.currentUser to null.
-        this.setState({currentUser: userAuth})
+      }else { //If the user logs out then userAuth will be null and we set our redux store user.currentUser to null.
+        setCurrentUser(userAuth)
       }
     }) 
   }
@@ -72,7 +67,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Header currentUser = {this.state.currentUser} />
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path = '/shop' component={ShopPage}/>
@@ -83,5 +78,8 @@ class App extends React.Component {
   }
  
 }
+ const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+ })
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

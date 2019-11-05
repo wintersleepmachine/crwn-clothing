@@ -13,7 +13,7 @@ const config = {
     measurementId: "G-Y11PB909FM"
 };
 
-//userAuth object we get back from the auth library
+//This function creates a document to the users collection in firestore if it doesnt already exists.
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return; //If they logout, userAuth obj returned an empty object of null, therefore break out of function.
 
