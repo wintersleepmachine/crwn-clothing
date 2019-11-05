@@ -5,15 +5,18 @@
 //Function that will combine the reducers and make up our redux store/state
 import {combineReducers} from 'redux'
 
-//Importing userReducer
+//Importing userReducer, cartReducer
 import userReducer from './user/user.reducer'
+import cartReducer from './cart/cart.reducer'
 
 //Remeber that our full state is one big object. The keys that represent the individual slices of state are the actual reducers that we write.
 //We pull the reducer with its state and combine it into one big object.
 export default combineReducers({
-    user: userReducer
+    user: userReducer,
+    cart: cartReducer
 })
 
 // {
-//     user: {currentUser: {...}}
+//     user: {currentUser: {...}},
+//      cart:  {hidden: true}
 // }
