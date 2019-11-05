@@ -1,3 +1,5 @@
+import {UserActionTypes} from './user.types'
+
 //A reducer is just a function that gets two parameters: currentState (obj) and action (obj w/ type and payload)
 
 //Setting an initial state as a default parameter to userReducer
@@ -8,7 +10,7 @@ const INITIAL_STATE = {
 //All reducers recieved every action, even if it isnt relevant to that reducer. Therefore we want to default return the state.
 const userReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case 'SET_CURRENT_USER':
+        case UserActionTypes.SET_CURRENT_USER:
             return {
                 ...state,
                 currentUser: action.payload

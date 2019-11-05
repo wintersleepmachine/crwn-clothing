@@ -14,5 +14,6 @@ export default combineReducers({
     user: userReducer
 })
 
-
-
+// {
+//     user: {currentUser: {...}}
+// }
