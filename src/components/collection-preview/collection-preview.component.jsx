@@ -12,16 +12,15 @@ return (
             {
                 items
                     .filter((item, idx) => idx<4) //Only return 4 items.
-                    .map(({id, ...otherItemProps}) => {
+                    .map((item) => {
                     return (
-                        <CollectionItem key={id} {...otherItemProps} />
+                        <CollectionItem key={item.id} item={item} />
                     )
                 })
             }
         </div>
     </div>
 )
-    
 }
 
 export default CollectionPreview
