@@ -6,6 +6,8 @@ import HomePage from './pages/homepage/homepage.component'
 import ShopPage from './pages/shop/shop.component'
 import Header from './components/header/header.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component'
+import CheckoutPage from './pages/checkout/checkout.component'
+
 import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 //We want to store the state of the user in our App.
 
@@ -15,6 +17,9 @@ import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {setCurrentUser} from './redux/user/user.actions'
 
+//Selectors
+import {selectCurrentUser} from './redux/user/user.selector'
+import {createStructuredSelector} from 'reselect'
 
 //App component will only display the Header and our routes. Therefore the Header component will always be displayed.
 class App extends React.Component {
@@ -72,6 +77,7 @@ class App extends React.Component {
           <Route exact path='/' component={HomePage}/>
           <Route exact path = '/shop' component={ShopPage}/>
           <Route exact path = '/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : <SignInAndSignUpPage/>}/>
+          <Route exact path = '/checkout' component={CheckoutPage}/>
         </Switch>
       </div>
     );
@@ -79,8 +85,8 @@ class App extends React.Component {
  
 }
 
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps =  createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
  const mapDispatchToProps = dispatch => ({

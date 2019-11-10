@@ -5,6 +5,10 @@ import {ReactComponent as Logo} from '../../assets/crown.svg'
 import {auth} from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import {createStructuredSelector} from 'reselect'
+import {selectCartHidden} from '../../redux/cart/cart.selectors'
+import {selectCurrentUser} from '../../redux/user/user.selector'
+
 
 //Importing connect which is a HOC which allows react to connect to redux
 import {connect} from 'react-redux'
@@ -41,9 +45,9 @@ const Header = ({currentUser, hidden}) => (
 
 //mapStateToProps allows us to access redux state through the rootReducer
 //mapStateToProps and connect will be used anywhere we need properties from our reducers
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser,
-    hidden: state.cart.hidden
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 })
 
 export default connect(mapStateToProps)(Header)
