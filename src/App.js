@@ -40,7 +40,7 @@ class App extends React.Component {
 
     //Everytime we refresh the function will fire again because auth.onAuthStateChanged() is always persisting.
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => { 
-        console.log(userAuth)
+        // console.log(userAuth)
       
 
       if(userAuth){//If a user signs in we get a userAuth object back from firebase
@@ -70,12 +70,13 @@ class App extends React.Component {
   }
 
   render(){
+
     return (
       <div>
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage}/>
-          <Route exact path = '/shop' component={ShopPage}/>
+          <Route path = '/shop' component={ShopPage}/>
           <Route exact path = '/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : <SignInAndSignUpPage/>}/>
           <Route exact path = '/checkout' component={CheckoutPage}/>
         </Switch>

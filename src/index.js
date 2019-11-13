@@ -8,13 +8,20 @@ import {BrowserRouter} from 'react-router-dom' //A component that we wrap around
 import {Provider} from 'react-redux'
 
 //Importing redux store
-import store from './redux/store'
+import {store, persistor} from './redux/store'
+
+//
+import {PersistGate} from 'redux-persist/integration/react'
+
 
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-         <App />
+            <PersistGate persistor={persistor}>  
+                <App />
+            </PersistGate>
+         
         </BrowserRouter>
     </Provider>, 
     document.getElementById('root')
