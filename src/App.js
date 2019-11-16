@@ -21,14 +21,19 @@ import {setCurrentUser} from './redux/user/user.actions'
 import {selectCurrentUser} from './redux/user/user.selector'
 import {createStructuredSelector} from 'reselect'
 
+
+
 //App component will only display the Header and our routes. Therefore the Header component will always be displayed.
 class App extends React.Component {
-  
+
+
 
   unsubscribeFromAuth = null //Initially set to null, but after auth.onAuthStateChanged() -> Gives us back a function and this function will close the subscription or close the open connection when the person closes the window for example.
 
   componentDidMount(){
-    const {setCurrentUser}= this.props
+    const {setCurrentUser} = this.props
+    
+    
 
     //We want to know when firebase realizes that the authentication state has changed i.e whenver someone signs in Or signs out, we want to be aware of that change.
     //When we call auth.onAuthChanged(callback), the call back takes an paramter which is the user state is of the auth in our firebase project
@@ -59,9 +64,10 @@ class App extends React.Component {
               ...snapShot.data() //Spreading createdAt, displayName, email
             })
         })
-      }else { //If the user logs out then userAuth will be null and we set our redux store user.currentUser to null.
+      } //If the user logs out then userAuth will be null and we set our redux store user.currentUser to null.
         setCurrentUser(userAuth)
-      }
+        
+      
     }) 
   }
 
@@ -90,8 +96,9 @@ const mapStateToProps =  createStructuredSelector({
   currentUser: selectCurrentUser
 })
 
+
  const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
  })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
