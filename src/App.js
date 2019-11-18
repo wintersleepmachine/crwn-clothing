@@ -66,8 +66,6 @@ class App extends React.Component {
         })
       } //If the user logs out then userAuth will be null and we set our redux store user.currentUser to null.
         setCurrentUser(userAuth)
-        
-      
     }) 
   }
 
